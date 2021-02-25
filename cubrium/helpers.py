@@ -5,6 +5,8 @@ Created on Thu Feb 25 16:45:59 2021
 @author: Andreas
 """
 
+import numpy as np
+
 
 def ddot(A, B):
     return np.tensordot(A, B, 2)

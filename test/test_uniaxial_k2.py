@@ -14,12 +14,31 @@ import cubrium
 import contique
 
 
-def test_uniaxial_k2():
-    k = 2
+def test_uniaxial_2():
+    test_uniaxial(2, 1, 5000, 250)
+    return
+
+
+def test_uniaxial_1():
+    test_uniaxial(1, 1, 5000, 250)
+    return
+
+
+def test_uniaxial_1m():
+    test_uniaxial(-1, 1, 5000, 250)
+    return
+
+
+def test_uniaxial_0():
+    test_uniaxial(0, 1, 5000, 250)
+    return
+
+
+def test_uniaxial(k, mu, bulk, steps):
     MDL = cubrium.system.init()
 
     MDL.GLO.constitution.matid = 1
-    MDL.GLO.constitution.parameters = [1, 5000, k]
+    MDL.GLO.constitution.parameters = [mu, bulk, k]
 
     # import loadcase settings
     MDL = cubrium.loadcase.uniaxial(MDL)
@@ -42,7 +61,7 @@ def test_uniaxial_k2():
         control0=10,
         jacmode=3,
         jaceps=1e-4,
-        maxsteps=250,
+        maxsteps=steps,
         maxcycles=4,
         maxiter=20,
         tol=1e-10,
@@ -57,10 +76,12 @@ def test_uniaxial_k2():
     history = cubrium.assembly.recover(Y, MDL)
 
     # xdmf time-series writer
+    fname = MDL.GLO.title + "_mu={0:g}_K={1:g}_k={2:g}".format(
+        *MDL.GLO.constitution.parameters
+    )
     cubrium.writer.xdmf(
         history,
-        filename=MDL.GLO.title
-        + "_mu={0:g}_K={1:g}_k={2:g}".format(*MDL.GLO.constitution.parameters),
+        filename=fname,
     )
 
     # plot results
@@ -69,10 +90,15 @@ def test_uniaxial_k2():
     plt.plot(Y[0, 1], Y[0, -1], "ko")
 
     plt.xlabel(r"stretch $\lambda_1$")
-    plt.ylabel(r"normal force $\N_1\ /\ \mu A$")
+    plt.ylabel(r"nondimensional normal force $N_1\ /\ (\mu A)$")
+
+    plt.savefig(fname + ".svg")
 
     return
 
 
 if __name__ == "__main__":
-    test_uniaxial_k2()
+    test_uniaxial_2()
+    test_uniaxial_1()
+    test_uniaxial_0()
+    test_uniaxial_1m()

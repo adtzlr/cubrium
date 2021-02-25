@@ -10,24 +10,24 @@ from functools import partial
 
 from copy import deepcopy as copy
 
-import kinematics
-import kinetics
+from . import kinematics
+from . import kinetics
 
 
 def recover(Y, MDL):
     "Recover equilibrium of multiple solutions."
-    return [copy(system(y, MDL)) for y in Y]
+    return [copy(system(y[:-1], y[-1], MDL)[1]) for y in Y]
 
 
 def equilibrium(H, lpf, MDL):
     "System equilibrium function returning only residuals."
-    return system(np.append(H, lpf), MDL)[0]
+    return system(H, lpf, MDL)[0]
 
 
-def system(y, MDL):
+def system(H, lpf, MDL):
     "Assemble system equilibrium equations."
 
-    H, lpf = y[:-1], y[-1]
+    # H, lpf = y[:-1], y[-1]
     F = kinematics.defgrd(H)
 
     Lpf = np.ones(6)
