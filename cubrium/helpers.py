@@ -18,3 +18,7 @@ def dya(A, B):
 
 def cdya(A, B):
     return (np.einsum("ij,kl->ikjl", A, B) + np.einsum("ij,kl->ilkj", A, B)) / 2
+
+
+def dev(A):
+    return A-np.trace(A)/3*np.eye(3)
