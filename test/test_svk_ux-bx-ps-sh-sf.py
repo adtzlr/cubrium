@@ -14,7 +14,7 @@ import cubrium
 import contique
 
 def test_base(k, mu, bulk, steps, lcase, ix):
-    MDL = cubrium.system.init()
+    MDL = cubrium.init()
 
     MDL.GLO.constitution.matid = 1
     MDL.GLO.constitution.parameters = [mu, bulk, k]
@@ -23,7 +23,7 @@ def test_base(k, mu, bulk, steps, lcase, ix):
     MDL = lcase(MDL)
 
     # Update Problem Definition with loadcase settings
-    MDL = cubrium.system.update(MDL)
+    MDL = cubrium.update(MDL)
 
     # initial solution
     x0 = np.zeros(9)
@@ -52,7 +52,7 @@ def test_base(k, mu, bulk, steps, lcase, ix):
     # J = np.array([np.linalg.det(res.x[:-1].reshape(3,3)+np.eye(3)) for res in Res])
 
     # recover internal quantities
-    history = cubrium.assembly.recover(Y, MDL)
+    history = cubrium.recover(Y, MDL)
 
     # xdmf time-series writer
     fname = MDL.GLO.title + "_mu={0:g}_K={1:g}_k={2:g}".format(
