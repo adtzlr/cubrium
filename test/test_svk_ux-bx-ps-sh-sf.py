@@ -13,35 +13,14 @@ import pytest
 import cubrium
 import contique
 
-
-def test_uniaxial_2():
-    test_uniaxial(2, 1, 5000, 250)
-    return
-
-
-def test_uniaxial_1():
-    test_uniaxial(1, 1, 5000, 250)
-    return
-
-
-def test_uniaxial_1m():
-    test_uniaxial(-1, 1, 5000, 250)
-    return
-
-
-def test_uniaxial_0():
-    test_uniaxial(0, 1, 5000, 250)
-    return
-
-
-def test_uniaxial(k, mu, bulk, steps):
+def test_base(k, mu, bulk, steps, lcase, ix):
     MDL = cubrium.system.init()
 
     MDL.GLO.constitution.matid = 1
     MDL.GLO.constitution.parameters = [mu, bulk, k]
 
     # import loadcase settings
-    MDL = cubrium.loadcase.uniaxial(MDL)
+    MDL = lcase(MDL)
 
     # Update Problem Definition with loadcase settings
     MDL = cubrium.system.update(MDL)
@@ -86,11 +65,13 @@ def test_uniaxial(k, mu, bulk, steps):
 
     # plot results
     plt.figure()
-    plt.plot(Y[:, 0], Y[:, -1], "-")
-    plt.plot(Y[0, 1], Y[0, -1], "ko")
+    plt.plot(Y[:, ix], Y[:, -1], "-")
+    plt.plot(Y[0, ix], Y[0, -1], "ko")
+    
+    comp = [(1,1),(1,2),(1,3),(2,1),(2,2),(2,3),(3,1),(3,2),(3,3)]
 
-    plt.xlabel(r"stretch $\lambda_1$")
-    plt.ylabel(r"nondimensional normal force $N_1\ /\ (\mu A)$")
+    plt.xlabel("comp. %d%d of displacement gradient" % comp[ix])
+    plt.ylabel("load-proportionality-factor LPF")
 
     plt.savefig(fname + ".svg")
 
@@ -98,7 +79,22 @@ def test_uniaxial(k, mu, bulk, steps):
 
 
 if __name__ == "__main__":
-    test_uniaxial_2()
-    test_uniaxial_1()
-    test_uniaxial_0()
-    test_uniaxial_1m()
+    ux = cubrium.loadcase.uniaxial
+    bx = cubrium.loadcase.biaxial
+    ps = cubrium.loadcase.planarshear
+    
+    sh = cubrium.loadcase.simpleshear
+    sf = cubrium.loadcase.simpleshearfree2free3
+    
+    mu = 1
+    bulk = 5000
+    steps = 250
+    
+    kk = [2,1,0,-1]
+    
+    for k in kk:
+        test_base(k,mu,bulk,steps,sf,1)
+        test_base(k,mu,bulk,steps,sh,1)
+        test_base(k,mu,bulk,steps,ux,0)
+        test_base(k,mu,bulk,steps,bx,0)
+        test_base(k,mu,bulk,steps,ps,0)
