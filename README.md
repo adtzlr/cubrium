@@ -79,19 +79,12 @@ MDL = cubrium.update(MDL)
 ```
 
 ### Solver
-Starting from a valid initial solution
-
-```python
-x0   = np.zeros(9)
-lpf0 = 0.0
-```
-
-everything is ready to solve the model in `contique`. **Hint**: `x0` are the components of the displacement gradient w.r.t. the undeformed coordinates (=primary unknows of the problem).
+Starting from a valid initial solution everything is ready to solve the model. **Hint**: `x0` are the flattened components of the displacement gradient w.r.t. the undeformed coordinates (=primary unknows of the problem).
 
 ```python
 Res = cubrium.solve(MDL)(
-    x0   = x0,
-    lpf0 = lpf0,
+    x0   = np.zeros(9),
+    lpf0 = 0.0,
 )
 ```
 
