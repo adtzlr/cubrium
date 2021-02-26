@@ -12,6 +12,8 @@ Cubrium is a toolbox for the definition, solution and post-processing of homogen
 
 It uses [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py) for the numeric continuation of the nonlinear equilibrium equations.
 
+If you use `cubrium` or `contique` in your scientific publications, please cite this my work. I'll provide a citable template with a DOI in the future.
+
 ## Example 101 a.k.a `hello cubrium` 😎
 This is an example which solves a cube with a Saint Venant-Kirchhoff (SVK) material for the case of uniaxial loading. In the first step, we `init` a model.
 
@@ -24,7 +26,7 @@ MDL = cubrium.init()
 ### Constitution
 In the second part, we have to define the constitutive law. We can either use one of `cubrium`'s models or use our own `umat` (user material). This time we're using our own `umat` function for a simple SVK material.
 
-<img src="https://latex.codecogs.com/gif.latex?\boldsymbol{S}&space;=&space;2&space;\mu&space;\&space;\boldsymbol{E}&space;&plus;&space;\gamma&space;\&space;\mathrm{tr}(\boldsymbol{E})&space;\&space;\boldsymbol{1}" title="\boldsymbol{S} = 2 \mu \ \boldsymbol{E} + \gamma \ \mathrm{tr}(\boldsymbol{E}) \ \boldsymbol{1}"  class="center" />
+<img src="https://latex.codecogs.com/gif.latex?\boldsymbol{S}&space;=&space;2&space;\mu&space;\&space;\boldsymbol{E}&space;&plus;&space;\gamma&space;\&space;\mathrm{tr}(\boldsymbol{E})&space;\&space;\boldsymbol{1}" title="\boldsymbol{S} = 2 \mu \ \boldsymbol{E} + \gamma \ \mathrm{tr}(\boldsymbol{E}) \ \boldsymbol{1}" />
 
 ```python
 import numpy as np
@@ -40,6 +42,7 @@ def umat_svk(F, parameters):
 
     C = F.T @ F
     E = 1 / 2 * (C - np.eye(3))
+    
     S = 2 * mu * E + gamma * np.trace(E) * np.eye(3)
 
     return F @ S
@@ -100,7 +103,7 @@ Res = contique.solve(
 )
 ```
 
-The results contain the extended unknowns `y = (x, lpf)` but no information about the internal quantities of the model. Therfore we extract the extended unknows from the Result object (`Res`) and recover these internal quantities (e.g. reaction forces) for all steps.
+The results contain the extended unknowns `y = (x, lpf)` but no information about the internal quantities of the model. Therefore we extract the extended unknows from the Result object (`Res`) and recover these internal quantities (e.g. reaction forces) for all steps.
 
 ```python
 Y = np.array([res.x for res in Res])
@@ -127,4 +130,6 @@ cubrium.writer.xdmf(
     )
 ```
 
-An exemplary scene for ParaView 5.9.0 is available to download. Import it in ParaView and choose "select input files" as shown below. Voila - a nice cube animation with a cube colored in "Cauchy stress XX" and reaction forces scaled and colored in "reaction force XX".
+An exemplary scene for ParaView 5.9.0 is available to download. Import it in ParaView and choose "select input files" as shown below. Voilà, a nice cube animation with a cube colored in "Cauchy stress XX" and reaction forces scaled and colored in "reaction force XX" is ready to animate.
+
+Have fun using `cubrium`! If you find any bugs please submit an issue.
