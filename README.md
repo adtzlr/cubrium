@@ -8,7 +8,7 @@ A **cub**e in equilib**rium**
 
 <img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/cube.png" width="75%">
 
-Cubrium is a toolbox for the definition, solution and post-processing of homogenous loadcases in continuum mechanics of solids (statics). It uses [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py) for the numeric continuation of the nonlinear equilibrium equations. If you use `cubrium` or `contique` in your scientific publications, please cite this my work. I'll provide a citable template with a DOI in the future.
+Cubrium is a toolbox for the definition, solution and post-processing of homogenous loadcases in continuum mechanics of solids (statics). It uses [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py) for the numeric continuation of the nonlinear equilibrium equations. If you use `cubrium` or `contique` in your scientific publications, please cite my work. I'll provide a citable template with a DOI in the future.
 
 ## Example 101 a.k.a `hello cubrium` 😎
 This is an example which solves a cube with a Saint Venant-Kirchhoff (SVK) material for the case of uniaxial loading. In the first step, we `init` a model.
@@ -52,7 +52,7 @@ MDL.GLO.constitution.parameters = [1.0, 5000.0]
 ```
 
 ### Loadcase (Kinematics and Kinetics)
-A loadcase is defined with exactly **10** equations. This contains either kinematic or kinetic types of equations. For the case of uniaxial loading we are building this loadcase for ourselfes. We apply an external normal force 1 and set all external shear forces and normal forces 2 and 3 to zero. A symmetric solution is enforced (no rigid body rotation is allowed). The load-proportionaly-factor is applied to the normal forces (`lpftype=0`). Finally we specify a `title` for the loadcase. This will later effect the output filenames.
+A loadcase is defined with exactly **9** equations for the unsymmetric or **6** equations for the full-symmetric case. This contains either kinematic or kinetic types of equations. For the case of uniaxial loading we are building this loadcase for ourselfes. We apply an external normal force 1 and set all external shear forces and normal forces 2 and 3 to zero. A symmetric solution is enforced (no rigid body rotation is allowed). The load-proportionaly-factor is applied to the normal forces (`lpftype=0`). Finally we specify a `title` for the loadcase. This will later effect the output filenames.
 
 ```python
 def uniaxial(MDL):
@@ -126,6 +126,6 @@ cubrium.writer.xdmf(
     )
 ```
 
-An exemplary scene for ParaView 5.9.0 is available to download. Import it in ParaView and choose "select input files" as shown below. Voilà, a nice cube animation with a cube colored in "Cauchy stress XX" and reaction forces scaled and colored in "reaction force XX" is ready to animate.
+An exemplary scene for ParaView 5.9.0 is available to download. Import it in ParaView and choose "select input files" as shown below. Voilà, a nice cube animation with a cube colored in "Cauchy stress XX" and reaction forces scaled and colored in "reaction force X" is ready to animate. The whole script of this example may be downloaded here.
 
 Have fun using `cubrium`! If you find any bugs please submit an issue.
