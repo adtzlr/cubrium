@@ -124,6 +124,10 @@ cubrium.writer.xdmf(
     )
 ```
 
-An exemplary scene for ParaView 5.9.0 is available to [download](https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/paraviewimportscene.pvsm). Import it in ParaView and choose "select input files" as shown below. Voilà, a nice cube animation with a cube colored in "Cauchy Stress XX" and reaction forces scaled and colored in "Reaction Force Magnitude" is ready to animate. The whole script of this example may be [downloaded here](https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/script101_hellocubrium.py).
+An exemplary scene for ParaView 5.9.0 is available to [download](https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/paraviewstatecube.pvsm). Import it in ParaView (File - Load state) and choose "Choose File Names" as shown below. Voilà, a nice cube scene in 3D with a cube colored in "Cauchy Stress XX" and reaction forces scaled and colored in "Reaction Force Magnitude" is ready to animate. The whole script of this example may be [downloaded here](https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/script101_hellocubrium.py).
+
+<img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/paraviewimportscene.png" width="75%">
+
+<img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/paraviewcube.png" width="75%">
 
 Have fun using `cubrium`! If you find any bugs please submit an issue.
