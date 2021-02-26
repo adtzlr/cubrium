@@ -13,7 +13,18 @@ import pytest
 import cubrium
 import contique
 
-def test_base(Cij, bulk, steps, lcase, ix):
+def test_tod_ux():
+    ux = cubrium.loadcase.uniaxial
+    
+    Cij = np.zeros(5)
+    Cij[0] = 0.4
+    Cij[1] = 0.1
+    Cij[3] = -0.01
+    Cij[4] = 0.01
+
+    base_tod(Cij,5000,20,ux,0)
+
+def base_tod(Cij, bulk, steps, lcase, ix):
     MDL = cubrium.init()
 
     MDL.GLO.constitution.matid = 3
@@ -93,7 +104,7 @@ if __name__ == "__main__":
     Cij[4] = 0.01
     
     bulk = 5000
-    steps = 50
+    steps = 20
     
-    test_base(Cij,bulk,steps,sf,1)
-    test_base(Cij,bulk,steps,ux,0)
+    test_base_tod(Cij,bulk,steps,sf,1)
+    test_base_tod(Cij,bulk,steps,ux,0)

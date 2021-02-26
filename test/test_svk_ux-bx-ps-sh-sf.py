@@ -13,7 +13,11 @@ import pytest
 import cubrium
 import contique
 
-def test_base(k, mu, bulk, steps, lcase, ix):
+def test_svk_ux_k2():
+    ux = cubrium.loadcase.uniaxial
+    base_svk(2,1,5000,20,ux,0)
+
+def base_svk(k, mu, bulk, steps, lcase, ix):
     MDL = cubrium.init()
 
     MDL.GLO.constitution.matid = 1
@@ -88,13 +92,13 @@ if __name__ == "__main__":
     
     mu = 1
     bulk = 5000
-    steps = 250
+    steps = 20
     
     kk = [2,1,0,-1]
     
     for k in kk:
-        test_base(k,mu,bulk,steps,sf,1)
-        test_base(k,mu,bulk,steps,sh,1)
-        test_base(k,mu,bulk,steps,ux,0)
-        test_base(k,mu,bulk,steps,bx,0)
-        test_base(k,mu,bulk,steps,ps,0)
+        base_svk(k,mu,bulk,steps,sf,1)
+        base_svk(k,mu,bulk,steps,sh,1)
+        base_svk(k,mu,bulk,steps,ux,0)
+        base_svk(k,mu,bulk,steps,bx,0)
+        base_svk(k,mu,bulk,steps,ps,0)
