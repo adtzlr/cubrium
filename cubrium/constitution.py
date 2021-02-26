@@ -29,6 +29,21 @@ def umat_svk(F, parameters):
     deformation gradient tensor with a list of material parameters."""
 
     # expand list of material parameters
+    mu, K = parameters[:2]
+    gamma = K - 2 / 3 * mu
+
+    C = F.T @ F
+    E = 1 / 2 * (C - np.eye(3))
+    S = 2 * mu * E + gamma * np.trace(E) * np.eye(3)
+
+    return F @ S
+
+def umat_ksvk(F, parameters):
+    """(U)ser (MAT)erial Function.
+    Returns First Piola-Kirchhoff stress tensor for a given
+    deformation gradient tensor with a list of material parameters."""
+
+    # expand list of material parameters
     mu, K, k = parameters[:3]
     gamma = K - 2 / 3 * mu
 
@@ -47,8 +62,8 @@ def umat_svk(F, parameters):
     return F @ Sk @ Ck @ la.inv(C)
 
 
-def umat_svk_multi(F, parameters):
-    return np.sum(np.array([umat_svk(F, p) for p in parameters]), 0)
+def umat_ksvk_multi(F, parameters):
+    return np.sum(np.array([umat_ksvk(F, p) for p in parameters]), 0)
 
 
 def umat_tod(F, parameters):
@@ -81,12 +96,14 @@ def umat_tod(F, parameters):
 def umatdb(matid):
     "Internal umat switcher based on material id."
     if matid == 0:
-        return umat_nh_compr
-    elif matid == 1:
         return umat_svk
+    elif matid == 1:
+        return umat_ksvk
     elif matid == 2:
-        return umat_svk_multi
+        return umat_ksvk_multi
     elif matid == 3:
         return umat_tod
+    elif matid == 4:
+        return umat_nh_compr
     else:
         return
