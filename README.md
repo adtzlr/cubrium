@@ -8,11 +8,7 @@ A **cub**e in equilib**rium**
 
 <img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/cube.png" width="75%">
 
-Cubrium is a toolbox for the definition, solution and post-processing of homogenous loadcases in continuum mechanics of solids (statics).
-
-It uses [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py) for the numeric continuation of the nonlinear equilibrium equations.
-
-If you use `cubrium` or `contique` in your scientific publications, please cite this my work. I'll provide a citable template with a DOI in the future.
+Cubrium is a toolbox for the definition, solution and post-processing of homogenous loadcases in continuum mechanics of solids (statics). It uses [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py) for the numeric continuation of the nonlinear equilibrium equations. If you use `cubrium` or `contique` in your scientific publications, please cite this my work. I'll provide a citable template with a DOI in the future.
 
 ## Example 101 a.k.a `hello cubrium` 😎
 This is an example which solves a cube with a Saint Venant-Kirchhoff (SVK) material for the case of uniaxial loading. In the first step, we `init` a model.
@@ -48,7 +44,7 @@ def umat_svk(F, parameters):
     return F @ S
 ```
 
-Now we have to link our `umat` to the `cubrium` model definition an specify material parameters.
+Now we have to link our `umat` to the `cubrium` model definition and specify material parameters.
 
 ```python
 MDL.GLO.constitution.umat = umat_svk
