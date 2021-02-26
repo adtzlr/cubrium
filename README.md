@@ -8,7 +8,7 @@ A **cub**e in equilib**rium**
 
 <img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/cube.png" width="75%">
 
-Cubrium is a toolbox for the definition, solution and post-processing of homogenous loadcases in continuum mechanics of solids (statics). It uses [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py) for the numeric continuation of the nonlinear equilibrium equations. If you use `cubrium` or `contique` in your scientific publications, please cite my work. I'll provide a citable template with a DOI in the future.
+Cubrium is a toolbox for the definition, solution and post-processing of homogenous loadcases in continuum mechanics of solids (statics). It uses [contique](https://github.com/adtzlr/contique/) for the numeric continuation of the nonlinear equilibrium equations. If you use `cubrium` or `contique` in your scientific publications, please cite my work. I'll provide a citable template with a DOI in the future.
 
 ## Example 101 a.k.a `hello cubrium` 😎
 This is an example which solves a cube with a Saint Venant-Kirchhoff (SVK) material for the case of uniaxial loading. In the first step, we `init` a model.
@@ -89,13 +89,9 @@ lpf0 = 0.0
 everything is ready to solve the model in `contique`. **Hint**: `x0` are the components of the displacement gradient w.r.t. the undeformed coordinates (=primary unknows of the problem).
 
 ```python
-import contique
-
-Res = contique.solve(
-    fun  = cubrium.assembly.equilibrium,
+Res = cubrium.solve(MDL)(
     x0   = x0,
     lpf0 = lpf0,
-    args = (MDL,),
 )
 ```
 
@@ -116,6 +112,8 @@ plt.plot(1+Y[:, 0], Y[:, -1], "-")
 plt.xlabel("stretch $\lambda_1$")
 plt.ylabel("load-proportionality-factor LPF")
 ```
+
+<img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/Uniaxial_stretch-lpf.svg" width="75%">
 
 Using `meshio` we are able to export our solution in the `xdmf` file format which may be further post-processed by ParaView.
 

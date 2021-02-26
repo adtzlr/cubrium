@@ -14,6 +14,8 @@ from .system import update
 
 from .assembly import recover
 
+from .solver import solve
+
 
 __all__ = [
     "__version__",
