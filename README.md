@@ -24,7 +24,7 @@ MDL = cubrium.init()
 ### Constitution
 In the second part, we have to define the constitutive law. We can either use one of `cubrium`'s models or use our own `umat` (user material). This time we're using our own `umat` function for a simple SVK material.
 
-<img src="https://latex.codecogs.com/gif.latex?\boldsymbol{S}&space;=&space;2&space;\mu&space;\&space;\boldsymbol{E}&space;&plus;&space;\gamma&space;\&space;\mathrm{tr}(\boldsymbol{E})&space;\&space;\boldsymbol{1}" title="\boldsymbol{S} = 2 \mu \ \boldsymbol{E} + \gamma \ \mathrm{tr}(\boldsymbol{E}) \ \boldsymbol{1}" />
+<img src="https://latex.codecogs.com/gif.latex?\boldsymbol{S}&space;=&space;2&space;\mu&space;\&space;\boldsymbol{E}&space;&plus;&space;\gamma&space;\&space;\mathrm{tr}(\boldsymbol{E})&space;\&space;\boldsymbol{1}" title="\boldsymbol{S} = 2 \mu \ \boldsymbol{E} + \gamma \ \mathrm{tr}(\boldsymbol{E}) \ \boldsymbol{1}"  class="center" />
 
 ```python
 import numpy as np
@@ -100,7 +100,7 @@ Res = contique.solve(
 )
 ```
 
-The results contain the extended unknowns `y = (x, lpf)` but no information about the internal quantities of the model. Next we extract the extended unknowsfrom the `Result` object and recover these internal quantities (e.g. reaction forces) for all steps.
+The results contain the extended unknowns `y = (x, lpf)` but no information about the internal quantities of the model. Therfore we extract the extended unknows from the Result object (`Res`) and recover these internal quantities (e.g. reaction forces) for all steps.
 
 ```python
 Y = np.array([res.x for res in Res])
