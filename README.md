@@ -123,4 +123,8 @@ An exemplary scene for ParaView 5.9.0 is available to [download](https://raw.git
 
 <img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/paraviewcube.png" width="75%">
 
+Finally you can watch the animated cube during the deformation.
+
+<a href="ttps://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/script101_hellocubrium_video.ogv"><img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/script101_hellocubrium_video.gif" href="" width="75%"></a>
+
 Have fun using `cubrium`! If you find any bugs please submit an issue.
