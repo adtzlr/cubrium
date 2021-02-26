@@ -13,16 +13,18 @@ import pytest
 import cubrium
 import contique
 
+
 def test_tod_ux():
     ux = cubrium.loadcase.uniaxial
-    
+
     Cij = np.zeros(5)
     Cij[0] = 0.4
     Cij[1] = 0.1
     Cij[3] = -0.01
     Cij[4] = 0.01
 
-    base_tod(Cij,5000,20,ux,0)
+    base_tod(Cij, 5000, 20, ux, 0)
+
 
 def base_tod(Cij, bulk, steps, lcase, ix):
     MDL = cubrium.init()
@@ -41,11 +43,9 @@ def base_tod(Cij, bulk, steps, lcase, ix):
     lpf0 = 0.0
 
     # numeric continuation
-    Res = contique.solve(
-        fun=cubrium.assembly.equilibrium,
+    Res = cubrium.solve(MDL)(
         x0=x0,
         lpf0=lpf0,
-        args=(MDL,),
         dxmax=0.05,
         dlpfmax=0.05,
         control0=10,
@@ -78,8 +78,8 @@ def base_tod(Cij, bulk, steps, lcase, ix):
     plt.figure()
     plt.plot(Y[:, ix], Y[:, -1], "-")
     plt.plot(Y[0, ix], Y[0, -1], "ko")
-    
-    comp = [(1,1),(1,2),(1,3),(2,1),(2,2),(2,3),(3,1),(3,2),(3,3)]
+
+    comp = [(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)]
 
     plt.xlabel("comp. %d%d of displacement gradient" % comp[ix])
     plt.ylabel("load-proportionality-factor LPF")
@@ -93,18 +93,18 @@ if __name__ == "__main__":
     ux = cubrium.loadcase.uniaxial
     bx = cubrium.loadcase.biaxial
     ps = cubrium.loadcase.planarshear
-    
+
     sh = cubrium.loadcase.simpleshear
     sf = cubrium.loadcase.simpleshearfree2free3
-    
+
     Cij = np.zeros(5)
     Cij[0] = 0.4
     Cij[1] = 0.1
     Cij[3] = -0.01
     Cij[4] = 0.01
-    
+
     bulk = 5000
     steps = 20
-    
-    test_base_tod(Cij,bulk,steps,sf,1)
-    test_base_tod(Cij,bulk,steps,ux,0)
+
+    base_tod(Cij, bulk, steps, sf, 1)
+    base_tod(Cij, bulk, steps, ux, 0)

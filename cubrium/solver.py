@@ -10,5 +10,6 @@ import contique
 
 from .assembly import equilibrium
 
+
 def solve(MDL):
-    return partial(contique.solve, fun=equilibrium,args=(MDL,))
+    return partial(contique.solve, fun=equilibrium, args=(MDL,))

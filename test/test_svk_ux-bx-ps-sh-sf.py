@@ -11,11 +11,12 @@ import numpy as np
 import pytest
 
 import cubrium
-import contique
+
 
 def test_svk_ux_k2():
     ux = cubrium.loadcase.uniaxial
-    base_svk(2,1,5000,20,ux,0)
+    base_svk(2, 1, 5000, 20, ux, 0)
+
 
 def base_svk(k, mu, bulk, steps, lcase, ix):
     MDL = cubrium.init()
@@ -34,11 +35,9 @@ def base_svk(k, mu, bulk, steps, lcase, ix):
     lpf0 = 0.0
 
     # numeric continuation
-    Res = contique.solve(
-        fun=cubrium.assembly.equilibrium,
+    Res = cubrium.solve(MDL)(
         x0=x0,
         lpf0=lpf0,
-        args=(MDL,),
         dxmax=0.05,
         dlpfmax=0.05,
         control0=10,
@@ -71,8 +70,8 @@ def base_svk(k, mu, bulk, steps, lcase, ix):
     plt.figure()
     plt.plot(Y[:, ix], Y[:, -1], "-")
     plt.plot(Y[0, ix], Y[0, -1], "ko")
-    
-    comp = [(1,1),(1,2),(1,3),(2,1),(2,2),(2,3),(3,1),(3,2),(3,3)]
+
+    comp = [(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)]
 
     plt.xlabel("comp. %d%d of displacement gradient" % comp[ix])
     plt.ylabel("load-proportionality-factor LPF")
@@ -86,19 +85,19 @@ if __name__ == "__main__":
     ux = cubrium.loadcase.uniaxial
     bx = cubrium.loadcase.biaxial
     ps = cubrium.loadcase.planarshear
-    
+
     sh = cubrium.loadcase.simpleshear
     sf = cubrium.loadcase.simpleshearfree2free3
-    
+
     mu = 1
     bulk = 5000
     steps = 20
-    
-    kk = [2,1,0,-1]
-    
+
+    kk = [2, 1, 0, -1]
+
     for k in kk:
-        base_svk(k,mu,bulk,steps,sf,1)
-        base_svk(k,mu,bulk,steps,sh,1)
-        base_svk(k,mu,bulk,steps,ux,0)
-        base_svk(k,mu,bulk,steps,bx,0)
-        base_svk(k,mu,bulk,steps,ps,0)
+        base_svk(k, mu, bulk, steps, sf, 1)
+        base_svk(k, mu, bulk, steps, sh, 1)
+        base_svk(k, mu, bulk, steps, ux, 0)
+        base_svk(k, mu, bulk, steps, bx, 0)
+        base_svk(k, mu, bulk, steps, ps, 0)

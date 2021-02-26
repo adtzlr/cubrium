@@ -21,4 +21,4 @@ def cdya(A, B):
 
 
 def dev(A):
-    return A-np.trace(A)/3*np.eye(3)
+    return A - np.trace(A) / 3 * np.eye(3)

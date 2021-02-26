@@ -38,6 +38,7 @@ def umat_svk(F, parameters):
 
     return F @ S
 
+
 def umat_ksvk(F, parameters):
     """(U)ser (MAT)erial Function.
     Returns First Piola-Kirchhoff stress tensor for a given
@@ -73,24 +74,24 @@ def umat_tod(F, parameters):
 
     # expand list of material parameters
     C10, C01, C11, C20, C30, K = parameters[:6]
-    
+
     J = la.det(F)
     I = np.eye(3)
-    C = F.T@F
-    Cu = J**(-2/3)*C
-    
-    I1u = np.trace(Cu)
-    I2u = (I1u**2-np.trace(Cu@Cu))/2
-    
-    W1u = C10 + 2*C20*(I1u-3) + 3*C30*(I1u-3)**2 + C11*(I2u-3)
-    W2u = C01 + C11*(I1u-3)
-    
-    Su = 2*W1u*I + 2*W2u*(I1u*I-Cu)
-    
-    p = K*(J-1)
+    C = F.T @ F
+    Cu = J ** (-2 / 3) * C
 
-    S = dev(Su@Cu)@la.inv(C) + p*J*la.inv(C)
-    return F@S
+    I1u = np.trace(Cu)
+    I2u = (I1u ** 2 - np.trace(Cu @ Cu)) / 2
+
+    W1u = C10 + 2 * C20 * (I1u - 3) + 3 * C30 * (I1u - 3) ** 2 + C11 * (I2u - 3)
+    W2u = C01 + C11 * (I1u - 3)
+
+    Su = 2 * W1u * I + 2 * W2u * (I1u * I - Cu)
+
+    p = K * (J - 1)
+
+    S = dev(Su @ Cu) @ la.inv(C) + p * J * la.inv(C)
+    return F @ S
 
 
 def umatdb(matid):
