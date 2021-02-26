@@ -2,11 +2,11 @@
 A **cub**e in equilib**rium**
 
 [![PyPI version shields.io](https://img.shields.io/pypi/v/cubrium.svg)](https://pypi.python.org/pypi/cubrium/)
-![Code coverage](coverage.svg)
+![Code coverage](scripts/coverage.svg)
 ![Made with love in Graz](https://madewithlove.now.sh/at?heart=true&colorA=%233b3b3b&colorB=%231f744f&text=Graz)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-<img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/cube.png" width="75%">
+<img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/cube.png" width="75%">
 
 Cubrium is a toolbox for the definition, solution and post-processing of homogenous loadcases in continuum mechanics of solids (statics). It uses [contique](https://github.com/adtzlr/contique/) for the numeric continuation of the nonlinear equilibrium equations. If you use `cubrium` or `contique` in your scientific publications, please cite my work. I'll provide a citable template with a DOI in the future.
 
