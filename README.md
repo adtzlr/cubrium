@@ -10,16 +10,13 @@ A **cub**e in equilib**rium**
 
 Cubrium is a toolbox for the definition, solution and post-processing of homogenous loadcases in continuum mechanics of solids (statics).
 
-It uses `contique` as a [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py) for the numeric continuation of the nonlinear equilibrium equations.
+It uses [contique](https://github.com/adtzlr/contique/blob/main/test/test_archimedean_spiral.py) for the numeric continuation of the nonlinear equilibrium equations.
 
 ## Example 101 a.k.a `hello cubrium` 😎
-This is an example which solves the Saint Venant-Kirchhoff (SVK) material for the case of uniaxial loading. In the first step, we `init` a model.
+This is an example which solves a cube with a Saint Venant-Kirchhoff (SVK) material for the case of uniaxial loading. In the first step, we `init` a model.
 
 ```python
-import numpy as np
-
 import cubrium
-import contique
 
 MDL = cubrium.init()
 ```
@@ -27,7 +24,11 @@ MDL = cubrium.init()
 ### Constitution
 In the second part, we have to define the constitutive law. We can either use one of `cubrium`'s models or use our own `umat` (user material). This time we're using our own `umat` function for a simple SVK material.
 
+<img src="https://latex.codecogs.com/gif.latex?\boldsymbol{S}&space;=&space;2&space;\mu&space;\&space;\boldsymbol{E}&space;&plus;&space;\gamma&space;\&space;\mathrm{tr}(\boldsymbol{E})&space;\&space;\boldsymbol{1}" title="\boldsymbol{S} = 2 \mu \ \boldsymbol{E} + \gamma \ \mathrm{tr}(\boldsymbol{E}) \ \boldsymbol{1}" />
+
 ```python
+import numpy as np
+
 def umat_svk(F, parameters):
     """(U)ser (MAT)erial Function.
     Returns First Piola-Kirchhoff stress tensor for a given
@@ -89,12 +90,14 @@ lpf0 = 0.0
 everything is ready to solve the model in `contique`. **Hint**: `x0` are the components of the displacement gradient w.r.t. the undeformed coordinates (=primary unknows of the problem).
 
 ```python
-    Res = contique.solve(
-        fun  = cubrium.assembly.equilibrium,
-        x0   = x0,
-        lpf0 = lpf0,
-        args = (MDL,),
-    )
+import contique
+
+Res = contique.solve(
+    fun  = cubrium.assembly.equilibrium,
+    x0   = x0,
+    lpf0 = lpf0,
+    args = (MDL,),
+)
 ```
 
 The results contain the extended unknowns `y = (x, lpf)` but no information about the internal quantities of the model. Next we extract the extended unknowsfrom the `Result` object and recover these internal quantities (e.g. reaction forces) for all steps.
