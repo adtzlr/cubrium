@@ -10,6 +10,8 @@ A **cub**e in equilib**rium**
 
 Cubrium is a toolbox for the definition, solution and post-processing of homogenous loadcases in continuum mechanics of solids (statics). It uses [contique](https://github.com/adtzlr/contique/) for the numeric continuation of the nonlinear equilibrium equations. If you use `cubrium` or `contique` in your scientific publications, please cite my work. I'll provide a citable template with a DOI in the future.
 
+[Official Documentation](https://adtzlr.github.io/cubrium/)
+
 ## Example 101 a.k.a `hello cubrium` 😎
 This is an example which solves a cube with a Saint Venant-Kirchhoff (SVK) material for the case of uniaxial loading. In the first step, we `init` a model.
 
