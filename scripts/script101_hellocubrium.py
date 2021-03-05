@@ -68,6 +68,7 @@ Y = np.array([res.x for res in Res])
 history = cubrium.recover(Y, MDL)
 
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 plt.figure()
 plt.plot(1 + Y[:, 0], Y[:, -1], ".-")
@@ -80,6 +81,14 @@ plt.plot(1 + Y[:, 4], Y[:, -1], ".-")
 plt.xlabel("transversal stretch $\lambda_2 = \lambda_3$")
 plt.ylabel("load-proportionality-factor LPF")
 plt.savefig(MDL.GLO.title + "_stretch-transv-lpf.svg")
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot(Y[:, 0], Y[:, 4], Y[:,-1], "-")
+ax.set_xlabel("$\lambda_1$")
+ax.set_ylabel("$\lambda_2 = \lambda_3$")
+ax.set_zlabel("LPF")
+plt.savefig(MDL.GLO.title + "_stretch1-stretch2-lpf.svg")
 
 cubrium.writer.xdmf(
     history,
