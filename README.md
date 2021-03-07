@@ -103,8 +103,9 @@ We plot the axial stretch vs. load-proportionality-factor in direction 1.
 ```python
 import matplotlib.pyplot as plt
 
-plt.plot(1+Y[:, 0], Y[:, -1], "-")
-plt.xlabel("stretch $\lambda_1$")
+plt.plot([0], [0],"C0o", label="origin")
+plt.plot(Y[:, 0], Y[:, -1], "C0.-")
+plt.xlabel("$\lambda_1 - 1$")
 plt.ylabel("load-proportionality-factor LPF")
 ```
 
