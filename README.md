@@ -108,7 +108,7 @@ plt.xlabel("stretch $\lambda_1$")
 plt.ylabel("load-proportionality-factor LPF")
 ```
 
-<img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/Uniaxial_stretch-lpf.svg" width="75%">
+<img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/Uniaxial_stretch-normal-lpf.svg" width="75%">
 
 Using `meshio` we are able to export our solution in the `xdmf` file format which may be further post-processed by ParaView.
 
