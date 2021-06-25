@@ -2,7 +2,6 @@
 A **cub**e in equilib**rium**
 
 [![PyPI version shields.io](https://img.shields.io/pypi/v/cubrium.svg)](https://pypi.python.org/pypi/cubrium/)
-![Code coverage](scripts/coverage.svg)
 ![Made with love in Graz](https://madewithlove.now.sh/at?heart=true&colorA=%233b3b3b&colorB=%231f744f&text=Graz)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
@@ -103,12 +102,13 @@ We plot the axial stretch vs. load-proportionality-factor in direction 1.
 ```python
 import matplotlib.pyplot as plt
 
-plt.plot(1+Y[:, 0], Y[:, -1], "-")
-plt.xlabel("stretch $\lambda_1$")
+plt.plot([0], [0],"C0o", label="origin")
+plt.plot(Y[:, 0], Y[:, -1], "C0.-")
+plt.xlabel("$\lambda_1 - 1$")
 plt.ylabel("load-proportionality-factor LPF")
 ```
 
-<img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/Uniaxial_stretch-lpf.svg" width="75%">
+<img src="https://raw.githubusercontent.com/adtzlr/cubrium/main/scripts/Uniaxial_stretch-normal-lpf.svg" width="75%">
 
 Using `meshio` we are able to export our solution in the `xdmf` file format which may be further post-processed by ParaView.
 
